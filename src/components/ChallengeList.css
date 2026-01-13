@@ -1,0 +1,10 @@
+.challenge-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.challenge-list-empty {
+  color: #888;
+  text-align: center;
+  padding: 2rem;
+}

@@ -4,91 +4,16 @@
   padding: 2rem;
 }
 
-h1 {
+.app-header {
+  margin-bottom: 1.5rem;
+}
+
+.app-header h1 {
   font-size: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 
-.challenge-list {
-  list-style: none;
-  margin-top: 1rem;
-}
-
-.challenge-item {
-  padding: 0.75rem;
-  border-bottom: 1px solid #333;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.challenge-item:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.challenge-id {
+.app-header p {
   color: #888;
   font-size: 0.875rem;
-  min-width: 2.5rem;
-}
-
-.challenge-item a {
-  color: #646cff;
-  text-decoration: none;
-}
-
-.challenge-item a {
-  flex: 1;
-}
-
-.challenge-item a:hover {
-  text-decoration: underline;
-}
-
-.challenge-status {
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  text-transform: uppercase;
-  font-weight: 600;
-}
-
-.challenge-status[data-status='todo'] {
-  background-color: #3a3a3a;
-  color: #888;
-}
-
-.challenge-status[data-status='doing'] {
-  background-color: #1a3a5c;
-  color: #58a6ff;
-}
-
-.challenge-status[data-status='done'] {
-  background-color: #1a3a2a;
-  color: #3fb950;
-}
-
-@media (prefers-color-scheme: light) {
-  .challenge-item {
-    border-bottom-color: #ddd;
-  }
-
-  .challenge-item:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
-  .challenge-status[data-status='todo'] {
-    background-color: #e0e0e0;
-    color: #666;
-  }
-
-  .challenge-status[data-status='doing'] {
-    background-color: #dbeafe;
-    color: #1d4ed8;
-  }
-
-  .challenge-status[data-status='done'] {
-    background-color: #dcfce7;
-    color: #15803d;
-  }
 }
