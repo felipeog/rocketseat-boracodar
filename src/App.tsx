@@ -25,6 +25,14 @@ function App() {
     )
   }
 
+  const handleGithubUrlChange = (id: number, githubRepoUrl: string | null) => {
+    setChallenges((prev) =>
+      prev.map((challenge) =>
+        challenge.id === id ? { ...challenge, githubRepoUrl } : challenge
+      )
+    )
+  }
+
   const counts = useMemo(() => ({
     all: challenges.length,
     todo: challenges.filter((c) => c.status === 'todo').length,
@@ -44,7 +52,11 @@ function App() {
         <StatusFilter value={filter} onChange={setFilter} counts={counts} />
       </header>
       <main>
-        <ChallengeList challenges={filteredChallenges} onStatusChange={handleStatusChange} />
+        <ChallengeList
+          challenges={filteredChallenges}
+          onStatusChange={handleStatusChange}
+          onGithubUrlChange={handleGithubUrlChange}
+        />
       </main>
     </div>
   )

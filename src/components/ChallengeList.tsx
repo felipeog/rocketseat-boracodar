@@ -5,9 +5,10 @@ import './ChallengeList.css'
 interface ChallengeListProps {
   challenges: Challenge[]
   onStatusChange: (id: number, status: ChallengeStatus) => void
+  onGithubUrlChange: (id: number, url: string | null) => void
 }
 
-export function ChallengeList({ challenges, onStatusChange }: ChallengeListProps) {
+export function ChallengeList({ challenges, onStatusChange, onGithubUrlChange }: ChallengeListProps) {
   // Always sort by id ascending - no manual reordering allowed
   const sortedChallenges = [...challenges].sort((a, b) => a.id - b.id)
 
@@ -22,6 +23,7 @@ export function ChallengeList({ challenges, onStatusChange }: ChallengeListProps
           key={challenge.id}
           challenge={challenge}
           onStatusChange={onStatusChange}
+          onGithubUrlChange={onGithubUrlChange}
         />
       ))}
     </ul>
