@@ -1,7 +1,18 @@
 {
   "name": "rocketseat-boracodar",
+  "version": "1.0.0",
+  "description": "A client-side application to track your progress on Rocketseat's Bora Codar frontend challenges",
+  "author": "felipeog",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/felipeog/rocketseat-boracodar.git"
+  },
+  "keywords": [
+    "rocketseat",
+    "boracodar"
+  ],
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
