@@ -29,7 +29,7 @@ export function exportChallenges(challenges: Challenge[]): void {
 
   const link = document.createElement('a')
   link.href = url
-  link.download = `boracodar-progress-${new Date().toISOString().split('T')[0]}.json`
+  link.download = `boracodar-progress-${new Date().toISOString()}.json`
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
