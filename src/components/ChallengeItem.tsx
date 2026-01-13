@@ -52,7 +52,7 @@ export function ChallengeItem({ challenge, onStatusChange, onGithubUrlChange }: 
     }
 
     if (!isValidGithubUrl(trimmedUrl)) {
-      setError('Please enter a valid GitHub repository URL')
+      setError('Please enter a valid GitHub repository URL (e.g., https://github.com/user/repo)')
       return
     }
 
@@ -79,8 +79,15 @@ export function ChallengeItem({ challenge, onStatusChange, onGithubUrlChange }: 
   return (
     <li className="challenge-item">
       <div className="challenge-main">
-        <span className="challenge-id">#{challenge.id}</span>
-        <a href={challenge.url} target="_blank" rel="noopener noreferrer">
+        <span className="challenge-id" aria-label={`Challenge number ${challenge.id}`}>
+          #{challenge.id}
+        </span>
+        <a
+          href={challenge.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${challenge.title} - Open Figma design in new tab`}
+        >
           {challenge.title}
         </a>
         <select
@@ -88,6 +95,7 @@ export function ChallengeItem({ challenge, onStatusChange, onGithubUrlChange }: 
           value={challenge.status}
           onChange={handleStatusChange}
           data-status={challenge.status}
+          aria-label={`Status for ${challenge.title}`}
         >
           {STATUS_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
@@ -98,7 +106,7 @@ export function ChallengeItem({ challenge, onStatusChange, onGithubUrlChange }: 
       </div>
       <div className="challenge-github">
         {isEditing ? (
-          <div className="github-edit">
+          <div className="github-edit" role="form" aria-label="Edit GitHub repository URL">
             <input
               type="url"
               className={`github-input ${error ? 'github-input-error' : ''}`}
@@ -106,17 +114,36 @@ export function ChallengeItem({ challenge, onStatusChange, onGithubUrlChange }: 
               onChange={(e) => setUrlInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="https://github.com/user/repo"
+              aria-label="GitHub repository URL"
+              aria-invalid={error ? 'true' : 'false'}
+              aria-describedby={error ? `github-error-${challenge.id}` : undefined}
               autoFocus
             />
             <div className="github-actions">
-              <button className="github-btn github-btn-save" onClick={handleSaveClick}>
+              <button
+                type="button"
+                className="github-btn github-btn-save"
+                onClick={handleSaveClick}
+              >
                 Save
               </button>
-              <button className="github-btn github-btn-cancel" onClick={handleCancelClick}>
+              <button
+                type="button"
+                className="github-btn github-btn-cancel"
+                onClick={handleCancelClick}
+              >
                 Cancel
               </button>
             </div>
-            {error && <span className="github-error">{error}</span>}
+            {error && (
+              <span
+                id={`github-error-${challenge.id}`}
+                className="github-error"
+                role="alert"
+              >
+                {error}
+              </span>
+            )}
           </div>
         ) : (
           <div className="github-display">
@@ -127,18 +154,34 @@ export function ChallengeItem({ challenge, onStatusChange, onGithubUrlChange }: 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="github-link"
+                  aria-label="Open GitHub repository in new tab"
                 >
                   {challenge.githubRepoUrl}
                 </a>
-                <button className="github-btn github-btn-edit" onClick={handleEditClick}>
+                <button
+                  type="button"
+                  className="github-btn github-btn-edit"
+                  onClick={handleEditClick}
+                  aria-label={`Edit GitHub URL for ${challenge.title}`}
+                >
                   Edit
                 </button>
-                <button className="github-btn github-btn-clear" onClick={handleClearClick}>
+                <button
+                  type="button"
+                  className="github-btn github-btn-clear"
+                  onClick={handleClearClick}
+                  aria-label={`Remove GitHub URL for ${challenge.title}`}
+                >
                   Clear
                 </button>
               </>
             ) : (
-              <button className="github-btn github-btn-add" onClick={handleEditClick}>
+              <button
+                type="button"
+                className="github-btn github-btn-add"
+                onClick={handleEditClick}
+                aria-label={`Add GitHub repository URL for ${challenge.title}`}
+              >
                 + Add GitHub Repo
               </button>
             )}

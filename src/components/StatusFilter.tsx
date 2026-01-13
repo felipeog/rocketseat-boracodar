@@ -23,16 +23,21 @@ const FILTER_OPTIONS: { value: FilterValue; label: string }[] = [
 
 export function StatusFilter({ value, onChange, counts }: StatusFilterProps) {
   return (
-    <div className="status-filter">
+    <div className="status-filter" role="group" aria-label="Filter challenges by status">
       {FILTER_OPTIONS.map((option) => (
         <button
           key={option.value}
+          type="button"
           className={`status-filter-btn ${value === option.value ? 'active' : ''}`}
           data-status={option.value}
           onClick={() => onChange(option.value)}
+          aria-pressed={value === option.value}
+          aria-label={`${option.label}: ${counts[option.value]} challenges`}
         >
           {option.label}
-          <span className="status-filter-count">{counts[option.value]}</span>
+          <span className="status-filter-count" aria-hidden="true">
+            {counts[option.value]}
+          </span>
         </button>
       ))}
     </div>

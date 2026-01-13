@@ -54,11 +54,21 @@ export function ImportExport({ challenges, onImport }: ImportExportProps) {
 
   return (
     <div className="import-export">
-      <div className="import-export-buttons">
-        <button className="import-export-btn" onClick={handleExport}>
+      <div className="import-export-buttons" role="group" aria-label="Import and export options">
+        <button
+          type="button"
+          className="import-export-btn"
+          onClick={handleExport}
+          aria-label="Export progress to JSON file"
+        >
           Export Progress
         </button>
-        <button className="import-export-btn" onClick={handleImportClick}>
+        <button
+          type="button"
+          className="import-export-btn"
+          onClick={handleImportClick}
+          aria-label="Import progress from JSON file"
+        >
           Import Progress
         </button>
         <input
@@ -66,11 +76,17 @@ export function ImportExport({ challenges, onImport }: ImportExportProps) {
           type="file"
           accept=".json,application/json"
           onChange={handleFileChange}
+          aria-hidden="true"
+          tabIndex={-1}
           style={{ display: 'none' }}
         />
       </div>
       {importResult && (
-        <div className={`import-result ${importResult.success ? 'success' : 'error'}`}>
+        <div
+          className={`import-result ${importResult.success ? 'success' : 'error'}`}
+          role="status"
+          aria-live="polite"
+        >
           {importResult.success
             ? `Successfully updated ${importResult.updatedCount} challenge(s)`
             : importResult.error}

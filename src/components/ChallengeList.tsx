@@ -13,11 +13,15 @@ export function ChallengeList({ challenges, onStatusChange, onGithubUrlChange }:
   const sortedChallenges = [...challenges].sort((a, b) => a.id - b.id)
 
   if (sortedChallenges.length === 0) {
-    return <p className="challenge-list-empty">No challenges found.</p>
+    return (
+      <p className="challenge-list-empty" role="status">
+        No challenges found for this filter.
+      </p>
+    )
   }
 
   return (
-    <ul className="challenge-list">
+    <ul className="challenge-list" aria-label={`${sortedChallenges.length} challenges`}>
       {sortedChallenges.map((challenge) => (
         <ChallengeItem
           key={challenge.id}
