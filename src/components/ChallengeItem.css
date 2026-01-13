@@ -26,25 +26,40 @@
   text-decoration: underline;
 }
 
-.challenge-status {
+.challenge-status-select {
   font-size: 0.75rem;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   text-transform: uppercase;
   font-weight: 600;
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 1.5rem;
+  background-repeat: no-repeat;
+  background-position: right 0.4rem center;
+  background-size: 0.65rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23888'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
 }
 
-.challenge-status[data-status='todo'] {
+.challenge-status-select:focus {
+  outline: 2px solid #646cff;
+  outline-offset: 1px;
+}
+
+.challenge-status-select[data-status='todo'] {
   background-color: #3a3a3a;
   color: #888;
 }
 
-.challenge-status[data-status='doing'] {
+.challenge-status-select[data-status='doing'] {
   background-color: #1a3a5c;
   color: #58a6ff;
 }
 
-.challenge-status[data-status='done'] {
+.challenge-status-select[data-status='done'] {
   background-color: #1a3a2a;
   color: #3fb950;
 }
@@ -58,17 +73,21 @@
     background-color: rgba(0, 0, 0, 0.05);
   }
 
-  .challenge-status[data-status='todo'] {
+  .challenge-status-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+  }
+
+  .challenge-status-select[data-status='todo'] {
     background-color: #e0e0e0;
     color: #666;
   }
 
-  .challenge-status[data-status='doing'] {
+  .challenge-status-select[data-status='doing'] {
     background-color: #dbeafe;
     color: #1d4ed8;
   }
 
-  .challenge-status[data-status='done'] {
+  .challenge-status-select[data-status='done'] {
     background-color: #dcfce7;
     color: #15803d;
   }

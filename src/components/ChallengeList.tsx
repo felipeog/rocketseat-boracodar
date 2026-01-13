@@ -1,12 +1,13 @@
-import type { Challenge } from '../types/Challenge'
+import type { Challenge, ChallengeStatus } from '../types/Challenge'
 import { ChallengeItem } from './ChallengeItem'
 import './ChallengeList.css'
 
 interface ChallengeListProps {
   challenges: Challenge[]
+  onStatusChange: (id: number, status: ChallengeStatus) => void
 }
 
-export function ChallengeList({ challenges }: ChallengeListProps) {
+export function ChallengeList({ challenges, onStatusChange }: ChallengeListProps) {
   // Always sort by id ascending - no manual reordering allowed
   const sortedChallenges = [...challenges].sort((a, b) => a.id - b.id)
 
@@ -17,7 +18,11 @@ export function ChallengeList({ challenges }: ChallengeListProps) {
   return (
     <ul className="challenge-list">
       {sortedChallenges.map((challenge) => (
-        <ChallengeItem key={challenge.id} challenge={challenge} />
+        <ChallengeItem
+          key={challenge.id}
+          challenge={challenge}
+          onStatusChange={onStatusChange}
+        />
       ))}
     </ul>
   )
