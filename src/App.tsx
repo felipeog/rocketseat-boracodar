@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import './App.css'
 import challengesData from './data/challenges.json'
 import type { BaseChallenge, Challenge, ChallengeStatus } from './types/Challenge'
 import { ChallengeList } from './components/ChallengeList'
+import { StatusFilter, type FilterValue } from './components/StatusFilter'
 
 const initialChallenges: Challenge[] = (challengesData as BaseChallenge[]).map(
   (challenge) => ({
@@ -14,6 +15,7 @@ const initialChallenges: Challenge[] = (challengesData as BaseChallenge[]).map(
 
 function App() {
   const [challenges, setChallenges] = useState<Challenge[]>(initialChallenges)
+  const [filter, setFilter] = useState<FilterValue>('all')
 
   const handleStatusChange = (id: number, status: ChallengeStatus) => {
     setChallenges((prev) =>
@@ -23,14 +25,26 @@ function App() {
     )
   }
 
+  const counts = useMemo(() => ({
+    all: challenges.length,
+    todo: challenges.filter((c) => c.status === 'todo').length,
+    doing: challenges.filter((c) => c.status === 'doing').length,
+    done: challenges.filter((c) => c.status === 'done').length,
+  }), [challenges])
+
+  const filteredChallenges = useMemo(() => {
+    if (filter === 'all') return challenges
+    return challenges.filter((c) => c.status === filter)
+  }, [challenges, filter])
+
   return (
     <div className="app">
       <header className="app-header">
         <h1>Bora Codar - Challenge Tracker</h1>
-        <p>{challenges.length} challenges</p>
+        <StatusFilter value={filter} onChange={setFilter} counts={counts} />
       </header>
       <main>
-        <ChallengeList challenges={challenges} onStatusChange={handleStatusChange} />
+        <ChallengeList challenges={filteredChallenges} onStatusChange={handleStatusChange} />
       </main>
     </div>
   )
