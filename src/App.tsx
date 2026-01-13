@@ -1,13 +1,22 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import { Routes, Route, Navigate, useParams } from 'react-router-dom'
 import './App.css'
 import { ChallengeList } from './components/ChallengeList'
 import { StatusFilter, type FilterValue } from './components/StatusFilter'
 import { ImportExport } from './components/ImportExport'
 import { useChallenges } from './hooks/useChallenges'
 
-function App() {
+const VALID_FILTERS: FilterValue[] = ['all', 'todo', 'doing', 'done']
+
+function isValidFilter(value: string | undefined): value is FilterValue {
+  return VALID_FILTERS.includes(value as FilterValue)
+}
+
+function ChallengeTracker() {
+  const { filter } = useParams<{ filter: string }>()
   const { challenges, updateStatus, updateGithubUrl, importChallenges, resetProgress } = useChallenges()
-  const [filter, setFilter] = useState<FilterValue>('all')
+
+  const currentFilter: FilterValue = isValidFilter(filter) ? filter : 'all'
 
   const counts = useMemo(() => ({
     all: challenges.length,
@@ -17,9 +26,9 @@ function App() {
   }), [challenges])
 
   const filteredChallenges = useMemo(() => {
-    if (filter === 'all') return challenges
-    return challenges.filter((c) => c.status === filter)
-  }, [challenges, filter])
+    if (currentFilter === 'all') return challenges
+    return challenges.filter((c) => c.status === currentFilter)
+  }, [challenges, currentFilter])
 
   return (
     <div className="app">
@@ -32,7 +41,7 @@ function App() {
             onReset={resetProgress}
           />
         </div>
-        <StatusFilter value={filter} onChange={setFilter} counts={counts} />
+        <StatusFilter value={currentFilter} counts={counts} />
       </header>
       <main>
         <ChallengeList
@@ -42,6 +51,15 @@ function App() {
         />
       </main>
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<Navigate to="/all" replace />} />
+      <Route path="/:filter" element={<ChallengeTracker />} />
+    </Routes>
   )
 }
 
