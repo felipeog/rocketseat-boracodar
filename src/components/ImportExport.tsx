@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import type { Challenge } from '../types/Challenge'
-import { exportChallenges, importChallenges, type ImportResult } from '../utils/importExport'
+import { exportChallenges, importChallenges } from '../utils/importExport'
 import './ImportExport.css'
 
 interface ImportExportProps {
