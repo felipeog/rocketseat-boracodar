@@ -1,0 +1,57 @@
+.import-export {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.import-export-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.import-export-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background-color: transparent;
+  color: #ccc;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.import-export-btn:hover {
+  border-color: #646cff;
+  color: #fff;
+  background-color: rgba(100, 108, 255, 0.1);
+}
+
+.import-result {
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+}
+
+.import-result.success {
+  background-color: rgba(63, 185, 80, 0.1);
+  color: #3fb950;
+  border: 1px solid rgba(63, 185, 80, 0.3);
+}
+
+.import-result.error {
+  background-color: rgba(248, 81, 73, 0.1);
+  color: #f85149;
+  border: 1px solid rgba(248, 81, 73, 0.3);
+}
+
+@media (prefers-color-scheme: light) {
+  .import-export-btn {
+    border-color: #ddd;
+    color: #444;
+  }
+
+  .import-export-btn:hover {
+    color: #213547;
+  }
+}

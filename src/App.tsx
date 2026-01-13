@@ -4,6 +4,7 @@ import challengesData from './data/challenges.json'
 import type { BaseChallenge, Challenge, ChallengeStatus } from './types/Challenge'
 import { ChallengeList } from './components/ChallengeList'
 import { StatusFilter, type FilterValue } from './components/StatusFilter'
+import { ImportExport } from './components/ImportExport'
 
 const initialChallenges: Challenge[] = (challengesData as BaseChallenge[]).map(
   (challenge) => ({
@@ -48,7 +49,10 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Bora Codar - Challenge Tracker</h1>
+        <div className="app-header-top">
+          <h1>Bora Codar - Challenge Tracker</h1>
+          <ImportExport challenges={challenges} onImport={setChallenges} />
+        </div>
         <StatusFilter value={filter} onChange={setFilter} counts={counts} />
       </header>
       <main>
