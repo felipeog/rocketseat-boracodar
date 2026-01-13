@@ -8,3 +8,45 @@ h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
+
+.challenge-list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.challenge-item {
+  padding: 0.75rem;
+  border-bottom: 1px solid #333;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.challenge-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.challenge-id {
+  color: #888;
+  font-size: 0.875rem;
+  min-width: 2.5rem;
+}
+
+.challenge-item a {
+  color: #646cff;
+  text-decoration: none;
+}
+
+.challenge-item a:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: light) {
+  .challenge-item {
+    border-bottom-color: #ddd;
+  }
+
+  .challenge-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
