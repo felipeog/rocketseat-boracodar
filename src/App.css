@@ -37,8 +37,35 @@ h1 {
   text-decoration: none;
 }
 
+.challenge-item a {
+  flex: 1;
+}
+
 .challenge-item a:hover {
   text-decoration: underline;
+}
+
+.challenge-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.challenge-status[data-status='todo'] {
+  background-color: #3a3a3a;
+  color: #888;
+}
+
+.challenge-status[data-status='doing'] {
+  background-color: #1a3a5c;
+  color: #58a6ff;
+}
+
+.challenge-status[data-status='done'] {
+  background-color: #1a3a2a;
+  color: #3fb950;
 }
 
 @media (prefers-color-scheme: light) {
@@ -48,5 +75,20 @@ h1 {
 
   .challenge-item:hover {
     background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  .challenge-status[data-status='todo'] {
+    background-color: #e0e0e0;
+    color: #666;
+  }
+
+  .challenge-status[data-status='doing'] {
+    background-color: #dbeafe;
+    color: #1d4ed8;
+  }
+
+  .challenge-status[data-status='done'] {
+    background-color: #dcfce7;
+    color: #15803d;
   }
 }
