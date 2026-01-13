@@ -88,10 +88,20 @@ export function useChallenges() {
     setChallenges(imported)
   }, [])
 
+  const resetProgress = useCallback(() => {
+    const reset = (challengesData as BaseChallenge[]).map((challenge) => ({
+      ...challenge,
+      status: 'todo' as ChallengeStatus,
+      githubRepoUrl: null,
+    }))
+    setChallenges(reset)
+  }, [])
+
   return {
     challenges,
     updateStatus,
     updateGithubUrl,
     importChallenges,
+    resetProgress,
   }
 }

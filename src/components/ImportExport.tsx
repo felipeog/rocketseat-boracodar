@@ -6,11 +6,23 @@ import './ImportExport.css'
 interface ImportExportProps {
   challenges: Challenge[]
   onImport: (challenges: Challenge[]) => void
+  onReset: () => void
 }
 
-export function ImportExport({ challenges, onImport }: ImportExportProps) {
+type FeedbackMessage = {
+  type: 'success' | 'error'
+  text: string
+}
+
+export function ImportExport({ challenges, onImport, onReset }: ImportExportProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const [importResult, setImportResult] = useState<ImportResult | null>(null)
+  const [feedback, setFeedback] = useState<FeedbackMessage | null>(null)
+  const [showResetConfirm, setShowResetConfirm] = useState(false)
+
+  const showFeedback = (message: FeedbackMessage) => {
+    setFeedback(message)
+    setTimeout(() => setFeedback(null), 5000)
+  }
 
   const handleExport = () => {
     exportChallenges(challenges)
@@ -29,39 +41,56 @@ export function ImportExport({ challenges, onImport }: ImportExportProps) {
       const content = event.target?.result as string
       const { result, challenges: updatedChallenges } = importChallenges(content, challenges)
 
-      setImportResult(result)
-
       if (result.success && updatedChallenges) {
         onImport(updatedChallenges)
+        showFeedback({
+          type: 'success',
+          text: `Successfully updated ${result.updatedCount} challenge(s)`,
+        })
+      } else {
+        showFeedback({
+          type: 'error',
+          text: result.error ?? 'Import failed',
+        })
       }
 
       // Clear the input so the same file can be selected again
       if (fileInputRef.current) {
         fileInputRef.current.value = ''
       }
-
-      // Clear the result message after 5 seconds
-      setTimeout(() => setImportResult(null), 5000)
     }
 
     reader.onerror = () => {
-      setImportResult({ success: false, error: 'Failed to read file' })
-      setTimeout(() => setImportResult(null), 5000)
+      showFeedback({ type: 'error', text: 'Failed to read file' })
     }
 
     reader.readAsText(file)
   }
 
+  const handleResetClick = () => {
+    setShowResetConfirm(true)
+  }
+
+  const handleResetConfirm = () => {
+    onReset()
+    setShowResetConfirm(false)
+    showFeedback({ type: 'success', text: 'Progress has been reset' })
+  }
+
+  const handleResetCancel = () => {
+    setShowResetConfirm(false)
+  }
+
   return (
     <div className="import-export">
-      <div className="import-export-buttons" role="group" aria-label="Import and export options">
+      <div className="import-export-buttons" role="group" aria-label="Progress management">
         <button
           type="button"
           className="import-export-btn"
           onClick={handleExport}
           aria-label="Export progress to JSON file"
         >
-          Export Progress
+          Export
         </button>
         <button
           type="button"
@@ -69,7 +98,15 @@ export function ImportExport({ challenges, onImport }: ImportExportProps) {
           onClick={handleImportClick}
           aria-label="Import progress from JSON file"
         >
-          Import Progress
+          Import
+        </button>
+        <button
+          type="button"
+          className="import-export-btn import-export-btn-danger"
+          onClick={handleResetClick}
+          aria-label="Reset all progress"
+        >
+          Reset
         </button>
         <input
           ref={fileInputRef}
@@ -81,15 +118,37 @@ export function ImportExport({ challenges, onImport }: ImportExportProps) {
           style={{ display: 'none' }}
         />
       </div>
-      {importResult && (
+
+      {showResetConfirm && (
+        <div className="reset-confirm" role="alertdialog" aria-labelledby="reset-title">
+          <p id="reset-title">Reset all progress? This cannot be undone.</p>
+          <div className="reset-confirm-actions">
+            <button
+              type="button"
+              className="reset-confirm-btn reset-confirm-btn-danger"
+              onClick={handleResetConfirm}
+            >
+              Yes, Reset
+            </button>
+            <button
+              type="button"
+              className="reset-confirm-btn"
+              onClick={handleResetCancel}
+              autoFocus
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {feedback && (
         <div
-          className={`import-result ${importResult.success ? 'success' : 'error'}`}
+          className={`import-result ${feedback.type}`}
           role="status"
           aria-live="polite"
         >
-          {importResult.success
-            ? `Successfully updated ${importResult.updatedCount} challenge(s)`
-            : importResult.error}
+          {feedback.text}
         </div>
       )}
     </div>

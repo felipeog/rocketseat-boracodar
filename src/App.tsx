@@ -6,7 +6,7 @@ import { ImportExport } from './components/ImportExport'
 import { useChallenges } from './hooks/useChallenges'
 
 function App() {
-  const { challenges, updateStatus, updateGithubUrl, importChallenges } = useChallenges()
+  const { challenges, updateStatus, updateGithubUrl, importChallenges, resetProgress } = useChallenges()
   const [filter, setFilter] = useState<FilterValue>('all')
 
   const counts = useMemo(() => ({
@@ -26,7 +26,11 @@ function App() {
       <header className="app-header">
         <div className="app-header-top">
           <h1>Bora Codar - Challenge Tracker</h1>
-          <ImportExport challenges={challenges} onImport={importChallenges} />
+          <ImportExport
+            challenges={challenges}
+            onImport={importChallenges}
+            onReset={resetProgress}
+          />
         </div>
         <StatusFilter value={filter} onChange={setFilter} counts={counts} />
       </header>
