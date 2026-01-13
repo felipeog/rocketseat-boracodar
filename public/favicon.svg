@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Background circle -->
+  <circle cx="16" cy="16" r="15" fill="#1a1a1a"/>
+
+  <!-- Code bracket left -->
+  <path d="M10 10L6 16L10 22" stroke="#646cff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Code bracket right -->
+  <path d="M22 10L26 16L22 22" stroke="#646cff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Checkmark in center -->
+  <path d="M12 16.5L15 19.5L20 13" stroke="#3fb950" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
